@@ -102,11 +102,11 @@ function setup() {
   mute_btn.size(50, 50);
   mute_btn.mouseClicked(mute);
 
-  ground = new Ground(200, canH, canW + 1190, 20);
+  ground = new Ground(200, canH, canW + 1150, 20);
   blink.frameDelay = 20;
   eat.frameDelay = 20;
 
-  bunny = createSprite(320, canH - 65, 100, 100);
+  bunny = createSprite(320, canH - 45, 100, 100);
   bunny.scale = 0.2;
 
   bunny.addAnimation('blinking', blink);
@@ -152,37 +152,33 @@ function setup() {
 
   rectMode(CENTER);
   ellipseMode(RADIUS);
+  // imageMode(CENTER);
   textSize(50)
 
 }
 
 function draw() {
-  background(51);
-  image(bg_img, 0, 0, displayWidth + 900, displayHeight+100);
+  background(50);
+  image(bg_img, 0, 0, displayWidth + 100, displayHeight);
 
-  push();
-  imageMode(CENTER);
   if (fruit != null) {
     image(food, fruit.position.x, fruit.position.y, 70, 70);
   }
-  pop();
 
-  rope.show();
-  rope2.show();
 
   Engine.update(engine);
   ground.show();
-
-  drawSprites();
-
+  rope.show();
+  rope2.show();
+  
   if (collide(fruit, bunny, 80) == true) {
     World.remove(engine.world, fruit);
     fruit = null;
     bunny.changeAnimation('eating');
     eating_sound.play();
   }
-
-
+  
+  
   if (fruit != null && fruit.position.y >= 650) {
     bunny.changeAnimation('crying');
     bk_song.stop();
@@ -193,15 +189,16 @@ function draw() {
     star.visible = false;
     stars.changeAnimation("onestar")
   }
-
+  
   if (collide(fruit, star2, 20) == true) {
     star2.visible = false;
     stars.changeAnimation("twostar")
-
-
+    
+    
   }
-
-
+  
+  drawSprites();
+  
 }
 
 function drop() {
