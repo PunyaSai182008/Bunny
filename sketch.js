@@ -72,54 +72,59 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
 
   }
-
   frameRate(80);
+
+  engine = Engine.create();
+  world = engine.world;
+  
 
   bk_song.play();
   bk_song.setVolume(0.5);
 
-  engine = Engine.create();
-  world = engine.world;
+  blink.frameDelay = 20;
+  eat.frameDelay = 20;
 
-  //btn 1
-  button = createImg('cut_btn.png');
-  button.position(180, 90);
-  button.size(50, 50);
-  button.mouseClicked(drop);
-
-  //btn 2
-  button2 = createImg('cut_btn.png');
-  button2.position(390, 90);
-  button2.size(50, 50);
-  button2.mouseClicked(drop2);
+  ground = new Ground(200, canH, canW + 1150, 20);
 
   rope = new Rope(7, { x: 200, y: 90 });
   rope2 = new Rope(7, { x: 400, y: 90 });
 
-
-  mute_btn = createImg('mute.png');
-  mute_btn.position(width - 50, 20);
-  mute_btn.size(50, 50);
-  mute_btn.mouseClicked(mute);
-
-  ground = new Ground(200, canH, canW + 1150, 20);
-  blink.frameDelay = 20;
-  eat.frameDelay = 20;
-
-  bunny = createSprite(320, canH - 45, 100, 100);
-  bunny.scale = 0.2;
-
+  bunny = createSprite(320, canH - 75, 100, 100);
+  
   bunny.addAnimation('blinking', blink);
   bunny.addAnimation('eating', eat);
   bunny.addAnimation('crying', sad);
   bunny.changeAnimation('blinking');
 
+  bunny.scale = 0.2;
 
   fruit = Bodies.circle(300, 300, 20);
   Matter.Composite.add(rope.body, fruit);
 
   fruit_con = new Link(rope, fruit);
   fruit_con_2 = new Link(rope2, fruit);
+
+  button = createImg('cut_btn.png');
+  button.position(180, 90);
+  button.size(50, 50);
+  button.mouseClicked(drop);
+
+  
+  button2 = createImg('cut_btn.png');
+  button2.position(390, 90);
+  button2.size(50, 50);
+  button2.mouseClicked(drop2);
+
+
+
+  mute_btn = createImg('mute.png');
+  mute_btn.position(450, 50);
+  mute_btn.size(50, 50);
+  mute_btn.mouseClicked(mute);
+
+
+
+
 
   star = createSprite(320, 50, 20, 20);
   star.addImage(starImg);
